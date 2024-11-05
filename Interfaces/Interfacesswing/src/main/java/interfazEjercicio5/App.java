@@ -105,30 +105,29 @@ public class App {
 			((Profile) profile).setEmailPr(user.getUserEmail());
 			((Profile) profile).setLastLoginPr(user.getLastLoginAt());
 			((Profile) profile).setCreatedAtPr(user.getCreatedAt());
-			
+
 		} catch (AuthenticationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void changePass() {
 		try {
 			user = userService.consultar(user.getUserId());
 			String passCifrada = DigestUtils.sha256Hex(((ChangePass) changePass).getPassRec());
-			if(!((ChangePass) changePass).getNewPassRec().equals(((ChangePass) changePass).getConfirmNewPassRec())){
+			if (!((ChangePass) changePass).getNewPassRec().equals(((ChangePass) changePass).getConfirmNewPassRec())) {
 				JOptionPane.showMessageDialog(frame, "Error: The new or the confirmation pass ", "Registration Error",
 						JOptionPane.ERROR_MESSAGE);
 			}
-			if(((ChangePass) changePass).getNewPassRec().equals(((ChangePass) changePass).getConfirmNewPassRec())) {
-				
-				userService.changePass(user.getUserId(), ((ChangePass) changePass).getPassRec(), ((ChangePass) changePass).getNewPassRec());
+			if (((ChangePass) changePass).getNewPassRec().equals(((ChangePass) changePass).getConfirmNewPassRec())) {
+
+				userService.changePass(user.getUserId(), ((ChangePass) changePass).getPassRec(),
+						((ChangePass) changePass).getNewPassRec());
 				profile();
 				setPanel(profile);
 			}
-			
-			
-			
+
 		} catch (AuthenticationException e) {
 			JOptionPane.showMessageDialog(frame, "Change Pasword Failed: " + e.getMessage(), "Authentication Error",
 					JOptionPane.ERROR_MESSAGE);
@@ -136,7 +135,6 @@ public class App {
 		}
 
 	}
-	
 
 	public void setLogin() {
 		setPanel(login);
