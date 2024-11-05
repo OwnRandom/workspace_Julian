@@ -82,6 +82,10 @@ public class UserService extends Service {
 				logger.error("Failed register attempt: Duplicated email not permited: ", user.getUserEmail());
 				throw new AuthenticationException("Duplicated email not permited: " + user.getUserEmail());
 			}
+			if (validarCorreo(user.getUserEmail()) == false) {
+				logger.error("Failed register attempt: Email format not permited: ", user.getUserEmail());
+				throw new AuthenticationException("Email format not permited: " + user.getUserEmail());
+			}
 
 			user.setUserId(userdao.insert(conn, user));
 			logger.debug("Access granted with: ", user);
@@ -144,9 +148,10 @@ public class UserService extends Service {
 	        }
 			
 			if (passCifrada.equals(passCifradaNueva)) {
-	            logger.error("Same passwords not permitted for user with ID: ", user_id);
-	            throw new AuthenticationException("Same passwords not permitted for user with ID: " + user_id);
+	            logger.error("Same passwords not permitted : ", user_id);
+	            throw new AuthenticationException("Same passwords not permitted : " + user_id);
 	        }
+			
 			
 			user.setPassword(passCifradaNueva);
 	        userdao.update(conn, user);
