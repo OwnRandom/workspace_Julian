@@ -85,24 +85,14 @@ public class App {
 		try {
 			user.setUsername(((Register) register).getUsernameReg());
 			user.setUserEmail(((Register) register).getEmailReg());
-			if (((Register) register).getPasswordReg().isBlank()) {
-				JOptionPane.showMessageDialog(frame, "Error: Passwords is blank", "Registration Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
-			if (((Register) register).getPasswordReg().equals(((Register) register).getConfirmedPasswordReg())) {
-				user.setPassword(((Register) register).getPasswordReg());
-			} else {
-				JOptionPane.showMessageDialog(frame, "Error: Passwords do not match", "Registration Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
-
+			user.setPassword(((Register) register).getPasswordReg());
 			user = userService.register(user);
 			profile();
 			setPanel(profile);
 
 		} catch (AuthenticationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(frame, "Register Failed: " + e.getMessage(), "Authentication Error",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -126,14 +116,6 @@ public class App {
 		try {
 			user = userService.consultar(user.getUserId());
 			String passCifrada = DigestUtils.sha256Hex(((ChangePass) changePass).getPassRec());
-			if(!passCifrada.equals(user.getPassword())) {
-				JOptionPane.showMessageDialog(frame, "Error: Wrong Password", "Registration Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
-			if(((ChangePass) changePass).getPassRec().equals(((ChangePass) changePass).getNewPassRec())) {
-				JOptionPane.showMessageDialog(frame, "Error: You cannot reuse your previous password", "Registration Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
 			if(!((ChangePass) changePass).getNewPassRec().equals(((ChangePass) changePass).getConfirmNewPassRec())){
 				JOptionPane.showMessageDialog(frame, "Error: The new or the confirmation pass ", "Registration Error",
 						JOptionPane.ERROR_MESSAGE);
@@ -148,8 +130,9 @@ public class App {
 			
 			
 		} catch (AuthenticationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(frame, "Change Pasword Failed: " + e.getMessage(), "Authentication Error",
+					JOptionPane.ERROR_MESSAGE);
+
 		}
 
 	}
