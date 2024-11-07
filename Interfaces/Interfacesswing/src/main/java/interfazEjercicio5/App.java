@@ -1,13 +1,19 @@
 package interfazEjercicio5;
 
 import java.awt.EventQueue;
+import java.io.File;
+import java.io.FileNotFoundException;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import ceu.dam.ad.ejerciciosTema3.csv.ejercicio02.Ejercicio02Service;
+import ceu.dam.ad.ejerciciosTema3.csv.exceptions.CsvException;
 import modelo.User;
 import service.AuthenticationException;
 import service.UserService;
@@ -20,6 +26,7 @@ public class App {
 	private JPanel profile;
 	private JPanel changePass;
 	private UserService userService;
+	private Ejercicio02Service ejer2Service;
 	private User user;
 
 	/**
@@ -134,6 +141,26 @@ public class App {
 
 		}
 
+	}
+	
+	public void ImportCSV() {
+		
+		try {
+		
+		
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setDialogTitle("Eliga un archivo csv");
+		FileNameExtensionFilter filer = new FileNameExtensionFilter("Archivos csv", "csv");
+		fileChooser.setFileFilter(filer);
+		Integer selection = fileChooser.showOpenDialog(frame);
+		if (selection == JFileChooser.APPROVE_OPTION) {
+			File fileToOpen = fileChooser.getSelectedFile();
+			ejer2Service.importarUsuarioCSV(fileToOpen.getAbsolutePath());
+		} 
+		} catch (CsvException e) {
+			JOptionPane.showMessageDialog(frame, "Import Failed: " + e.getMessage(), "Import Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	public void setLogin() {

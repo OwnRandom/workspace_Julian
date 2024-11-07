@@ -10,5 +10,10 @@
 	<artifactId>Ejercicio5</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	</dependency>
-	</dependencies>
+  <dependency>
+  	<groupId>ceu.dam.ad</groupId>
+  	<artifactId>EjerciciosTema2Solucion</artifactId>
+  	<version>1.0.0</version>
+  </dependency>
+  </dependencies>
 </project>
