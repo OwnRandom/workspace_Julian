@@ -11,9 +11,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	</dependency>
   <dependency>
-  	<groupId>ceu.dam.ad</groupId>
-  	<artifactId>EjerciciosTema2Solucion</artifactId>
-  	<version>1.0.0</version>
+  	<groupId>Ejercicio5</groupId>
+	<artifactId>Ejercicio5</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
   </dependency>
   </dependencies>
 </project>
